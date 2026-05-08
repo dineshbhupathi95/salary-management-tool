@@ -56,3 +56,42 @@ def test_overview_insights(client):
     res = client.get("/insights/overview")
     assert res.status_code == 200
     assert res.json()["total_employees"] == 1
+
+
+def test_metadata_lists_for_country_and_job_titles(client):
+    employees = [
+        {
+            "full_name": "E Five",
+            "job_title": "Software Engineer",
+            "country": "India",
+            "salary": 100000,
+            "department": "Engineering",
+            "status": "active",
+        },
+        {
+            "full_name": "F Six",
+            "job_title": "Product Manager",
+            "country": "USA",
+            "salary": 140000,
+            "department": "Product",
+            "status": "active",
+        },
+        {
+            "full_name": "G Seven",
+            "job_title": "QA Engineer",
+            "country": "India",
+            "salary": 90000,
+            "department": "Engineering",
+            "status": "active",
+        },
+    ]
+    for employee in employees:
+        client.post("/employees", json=employee)
+
+    countries = client.get("/metadata/countries")
+    assert countries.status_code == 200
+    assert countries.json() == ["India", "USA"]
+
+    india_titles = client.get("/metadata/job-titles?country=India")
+    assert india_titles.status_code == 200
+    assert india_titles.json() == ["QA Engineer", "Software Engineer"]
