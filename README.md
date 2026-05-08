@@ -13,6 +13,13 @@ Full-stack assignment solution using:
   - Average salary by job title in a country
   - Global overview metrics (total/active/inactive employees, global average)
 - Seed script to generate 10,000 employees from first and last name files
+## Demo Video
+
+
+https://github.com/user-attachments/assets/102fcc9c-93b4-4c03-bd50-6eafe31422fd
+
+
+
 
 ## Project Structure
 
