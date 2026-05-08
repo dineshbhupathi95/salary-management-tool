@@ -106,3 +106,16 @@ def overview_insights(db: Session) -> dict:
         "inactive_employees": inactive,
         "global_average_salary": round(float(avg_salary), 2),
     }
+
+
+def list_countries(db: Session) -> list[str]:
+    stmt = select(Employee.country).distinct().order_by(Employee.country.asc())
+    return list(db.scalars(stmt))
+
+
+def list_job_titles(db: Session, country: str | None = None) -> list[str]:
+    stmt = select(Employee.job_title).distinct()
+    if country:
+        stmt = stmt.where(Employee.country == country)
+    stmt = stmt.order_by(Employee.job_title.asc())
+    return list(db.scalars(stmt))

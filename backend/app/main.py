@@ -93,3 +93,13 @@ def get_job_title_insights(country: str, job_title: str, db: Session = Depends(g
 @app.get("/insights/overview", response_model=schemas.OverviewInsights)
 def get_overview_insights(db: Session = Depends(get_db)):
     return crud.overview_insights(db)
+
+
+@app.get("/metadata/countries", response_model=list[str])
+def get_countries(db: Session = Depends(get_db)):
+    return crud.list_countries(db)
+
+
+@app.get("/metadata/job-titles", response_model=list[str])
+def get_job_titles(country: str | None = Query(default=None), db: Session = Depends(get_db)):
+    return crud.list_job_titles(db, country=country)
