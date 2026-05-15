@@ -61,7 +61,9 @@ def delete_employee(db: Session, employee: Employee) -> None:
 
 def country_insights(db: Session, country: str) -> dict:
     stmt = select(Employee.salary).where(Employee.country == country)
+    print(stmt)
     salaries = [row for row in db.scalars(stmt)]
+    print(salaries,'salaries')
     if not salaries:
         return {}
 

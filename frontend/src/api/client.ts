@@ -6,7 +6,8 @@ import type {
   OverviewInsights,
 } from "../types";
 
-const API_BASE = "http://127.0.0.1:8000";
+const API_BASE = "https://salary-management-tool-dhv7.onrender.com"
+    // "http://127.0.0.1:8000";
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
   const response = await fetch(`${API_BASE}${path}`, {

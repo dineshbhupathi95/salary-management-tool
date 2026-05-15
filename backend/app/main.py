@@ -22,7 +22,10 @@ app.add_middleware(
 def health():
     return {"status": "ok"}
 
+'''
+Create Employees API
 
+'''
 @app.post("/employees", response_model=schemas.EmployeeOut, status_code=201)
 def create_employee(payload: schemas.EmployeeCreate, db: Session = Depends(get_db)):
     return crud.create_employee(db, payload)
