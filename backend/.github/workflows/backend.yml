@@ -1,4 +1,4 @@
-name: Backend CI/CD
+name: Backend Tests
 
 on:
   push:
@@ -6,8 +6,12 @@ on:
       - 'backend/**'
 
 jobs:
-  backend-build:
+  test:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: backend
 
     steps:
       - name: Checkout Code
@@ -16,14 +20,12 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Install Dependencies
         run: |
-          cd backend
           pip install -r requirements.txt
 
-      - name: Check Syntax
+      - name: Run Tests
         run: |
-          cd backend
-            python -m py_compile main.py
+          pytest
